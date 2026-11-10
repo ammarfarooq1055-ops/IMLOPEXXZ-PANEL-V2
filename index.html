@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080b12">
+<title>IMLOPEXXZ PANEL V2.0</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#080b12;color:white;
+ font-family:Arial,sans-serif;padding:20px;
+}
+header{text-align:center;padding:25px 0}
+h1{color:#00e5ff;font-size:27px}
+.sub{color:#8795a8}
+.card{
+ background:#121b2a;border:1px solid #24364c;
+ border-radius:14px;padding:18px;margin:15px 0;
+}
+h2{font-size:18px;color:#00e5ff}
+label{display:block;margin:15px 0 7px}
+input{
+ width:100%;padding:12px;border-radius:8px;
+ border:1px solid #34465e;background:#080f1b;
+ color:white;font-size:16px;
+}
+button{
+ border:0;border-radius:9px;padding:13px;
+ background:#00cfe8;color:#061019;
+ font-weight:bold;font-size:15px;width:100%;
+ margin-top:12px;
+}
+.value{color:#00e5ff;font-weight:bold}
+footer{text-align:center;color:#77869b;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>IMLOPEXXZ</h1>
+<div class="sub">GAMING SETTINGS PANEL V2.0</div>
+</header>
+
+<div class="card">
+<h2>HEADSHOT SENSITIVITY</h2>
+<p>Customize your personal Free Fire settings.</p>
+
+<label>General <span class="value" id="v1">190</span></label>
+<input type="range" min="0" max="200" value="190" oninput="update(this,'v1')">
+
+<label>Red Dot <span class="value" id="v2">185</span></label>
+<input type="range" min="0" max="200" value="185" oninput="update(this,'v2')">
+
+<label>2X Scope <span class="value" id="v3">180</span></label>
+<input type="range" min="0" max="200" value="180" oninput="update(this,'v3')">
+
+<label>4X Scope <span class="value" id="v4">170</span></label>
+<input type="range" min="0" max="200" value="170" oninput="update(this,'v4')">
+
+<label>Sniper Scope <span class="value" id="v5">100</span></label>
+<input type="range" min="0" max="200" value="100" oninput="update(this,'v5')">
+
+<label>Free Look <span class="value" id="v6">150</span></label>
+<input type="range" min="0" max="200" value="150" oninput="update(this,'v6')">
+
+<button onclick="saveSettings()">SAVE SETTINGS</button>
+<button onclick="resetSettings()">RESET SETTINGS</button>
+</div>
+
+<div class="card">
+<h2>ABOUT PANEL</h2>
+<p>Version: 2.0</p>
+<p>Owner: IMLOPEXXZ</p>
+<p>Device: Android</p>
+<p>Purpose: Personal gaming settings and sensitivity customization.</p>
+</div>
+
+<footer>IMLOPEXXZ PANEL V2.0 © 2026</footer>
+
+<script>
+function update(el,id){
+ document.getElementById(id).textContent=el.value;
+}
+function saveSettings(){
+ let values=[...document.querySelectorAll('input')].map(x=>x.value);
+ localStorage.setItem('imlopexxz',JSON.stringify(values));
+ alert('Settings saved!');
+}
+function resetSettings(){
+ document.querySelectorAll('input').forEach((x,i)=>{
+ x.value=[190,185,180,170,100,150][i];
+ update(x,'v'+(i+1));
+ });
+ localStorage.removeItem('imlopexxz');
+}
+window.onload=()=>{
+ let saved=JSON.parse(localStorage.getItem('imlopexxz')||'null');
+ if(saved)saved.forEach((v,i)=>{
+ let x=document.querySelectorAll('input')[i];
+ x.value=v;update(x,'v'+(i+1));
+ });
+};
+</script>
+</body>
+</html>
